@@ -38,6 +38,12 @@
 #include "imgui_impl_sdlrenderer2.h"
 #include <stdint.h>     // intptr_t
 
+#ifdef _WIN32
+#define __HEADER_SDL2 <SDL.h>
+#else
+#define __HEADER_SDL2 <SDL2/SDL.h>
+#endif
+
 // Clang warnings with -Weverything
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -45,7 +51,7 @@
 #endif
 
 // SDL
-#include <SDL2/SDL.h>
+#include __HEADER_SDL2
 #if !SDL_VERSION_ATLEAST(2,0,17)
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif

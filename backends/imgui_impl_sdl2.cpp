@@ -98,6 +98,16 @@
 #ifndef IMGUI_DISABLE
 #include "imgui_impl_sdl2.h"
 
+#ifdef _WIN32
+#define __HEADER_SDL2 <SDL.h>
+#define __HEADER_SDL2_SYSWM <SDL_syswm.h>
+#define __HEADER_SDL2_VULKAN <SDL_vulkan.h>
+#else
+#define __HEADER_SDL2 <SDL2/SDL.h>
+#define __HEADER_SDL2_SYSWM <SDL2/SDL_syswm.h>
+#define __HEADER_SDL2_VULKAN <SDL2/SDL_vulkan.h>
+#endif
+
 // Clang warnings with -Weverything
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -105,8 +115,8 @@
 #endif
 
 // SDL
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_syswm.h>
+#include __HEADER_SDL2
+#include __HEADER_SDL2_SYSWM
 #ifdef __APPLE__
 #include <TargetConditionals.h>
 #endif
@@ -122,7 +132,7 @@
 #define SDL_HAS_VULKAN                      SDL_VERSION_ATLEAST(2,0,6)
 #define SDL_HAS_OPEN_URL                    SDL_VERSION_ATLEAST(2,0,14)
 #if SDL_HAS_VULKAN
-#include <SDL2/SDL_vulkan.h>
+#include __HEADER_SDL2_VULKAN
 #endif
 
 // SDL Data
